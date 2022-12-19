@@ -1,8 +1,10 @@
-#Шаблон из 11 урока (18 декабря)
-
+# Шаблон из 11 урока (18 декабря)
+# Тестовая строка, чтобы запушить на гит через PyCharm
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLCDNumber, QVBoxLayout
+
+
 class Example(QWidget):
     def __init__(self):
         super().__init__()
