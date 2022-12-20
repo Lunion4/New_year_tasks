@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QInputDialog, QMessageBox
 from ui import Ui_Dialog
 import sys
@@ -9,6 +9,7 @@ class Window(QtWidgets.QMainWindow):
         super(Window, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
 
         self.load_tasks()
         self.ui.add_button.clicked.connect(self.add_tasks)
