@@ -48,8 +48,8 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.good.setText(_translate("Dialog", "Выполненые задачи"))
+        Dialog.setWindowTitle(_translate("Dialog", "NYT (New Year Tasks)"))
+        self.good.setText(_translate("Dialog", "Выполненные задачи"))
         self.bad.setText(_translate("Dialog", "Активные задачи"))
         self.add_button.setText(_translate("Dialog", "Добавить"))
         self.remove_button.setText(_translate("Dialog", "Убрать"))
