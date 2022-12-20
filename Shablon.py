@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLCDNumber, QVBo
 class Example(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Планировшик задач на Новый Год")
+        self.setWindowTitle("Планировщик задач на Новый Год")
         self.resize(200, 200)
         self.lcd = QLCDNumber(self)
         self.vbox = QVBoxLayout()
