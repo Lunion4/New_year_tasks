@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QInputDialog, QMessageBox
+from PyQt5.QtSql import QSqlQuery, QSqlDatabase
 from ui import Ui_Dialog
 import sys
 
@@ -10,6 +11,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('icon.png'))
+        self.create_db()
 
         self.load_tasks()
         self.ui.add_button.clicked.connect(self.add_tasks)
@@ -17,7 +19,6 @@ class Window(QtWidgets.QMainWindow):
         self.ui.move_button.clicked.connect(self.click_push_button)
         self.ui.remove_button.clicked.connect(self.remove_tasks_2)
     def load_tasks(self):
-        self.ui.listWidget.addItems(['Украсить ёлку', 'Развесить игрушки по дому', 'Приготовить подарки родным'])
         self.ui.listWidget.setCurrentRow(0)
 
     def add_tasks(self):
@@ -57,6 +58,16 @@ class Window(QtWidgets.QMainWindow):
         for row in rows:
             self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
 
+    def create_db(self):
+        db = QSqlDatabase.addDatabase('QSQLITE')
+        db.setDatabaseName('tasklist.sqlite')
+        db.open()
+        query = QSqlQuery()
+        query.exec("""CREATE TABLE IF NOT EXIST tasklist (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        taskname VARCHAR(255) NOT NULL,
+        active BOOL NOT NULL DEFAULT TRUE ) 
+        """)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
