@@ -23,7 +23,7 @@ class Window(QtWidgets.QMainWindow):
     def add_tasks(self):
         current_index = self.ui.listWidget.currentRow()
         text, ok = QInputDialog.getText(self, 'Новая Задача', 'Задача:')
-        if ok and text is not None:
+        if ok and text != '':
             self.ui.listWidget.insertItem(current_index, text)
 
     def remove_tasks(self):
@@ -37,6 +37,19 @@ class Window(QtWidgets.QMainWindow):
 
         if question == QMessageBox.Yes:
             item = self.ui.listWidget.takeItem(current_index)
+            del item
+
+    def remove_tasks_2(self):
+        current_index = self.ui.listWidget.currentRow()
+        item = self.ui.listWidget.item(current_index)
+        if item is None:
+            return
+
+        question = QMessageBox.question(self, "Убрать задачу", 'Вы точно хотите убрать задачу ' + item.text(),
+                                        QMessageBox.Yes | QMessageBox.No)
+
+        if question == QMessageBox.Yes:
+            item = self.ui.listWidget_2.takeItem(current_index)
             del item
 
     def click_push_button(self):
