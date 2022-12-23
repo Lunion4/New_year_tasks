@@ -15,7 +15,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.add_button.clicked.connect(self.add_tasks)
         self.ui.remove_button.clicked.connect(self.remove_tasks)
         self.ui.move_button.clicked.connect(self.click_push_button)
-
+        self.ui.remove_button.clicked.connect(self.remove_tasks_2)
     def load_tasks(self):
         self.ui.listWidget.addItems(['Украсить ёлку', 'Развесить игрушки по дому', 'Приготовить подарки родным'])
         self.ui.listWidget.setCurrentRow(0)
@@ -40,8 +40,8 @@ class Window(QtWidgets.QMainWindow):
             del item
 
     def remove_tasks_2(self):
-        current_index = self.ui.listWidget.currentRow()
-        item = self.ui.listWidget.item(current_index)
+        current_index = self.ui.listWidget_2.currentRow()
+        item = self.ui.listWidget_2.item(current_index)
         if item is None:
             return
 
