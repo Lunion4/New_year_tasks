@@ -17,6 +17,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.add_button.clicked.connect(self.add_tasks)
         self.ui.remove_button.clicked.connect(self.remove_tasks)
         self.ui.move_button.clicked.connect(self.click_push_button)
+        self.ui.listWidget.itemDoubleClicked.connect(self.remove_tasks)
         self.ui.listWidget_2.itemDoubleClicked.connect(self.remove_tasks_2)
     def load_tasks(self):
         self.ui.listWidget.setCurrentRow(0)
