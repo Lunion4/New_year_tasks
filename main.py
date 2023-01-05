@@ -19,6 +19,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.move_button.clicked.connect(self.click_push_button)
         self.ui.listWidget.itemDoubleClicked.connect(self.remove_tasks)
         self.ui.listWidget_2.itemDoubleClicked.connect(self.remove_tasks_2)
+
     def load_tasks(self):
         self.ui.listWidget.setCurrentRow(0)
 
@@ -26,7 +27,10 @@ class Window(QtWidgets.QMainWindow):
         current_index = self.ui.listWidget.currentRow()
         text, ok = QInputDialog.getText(self, 'Новая Задача', 'Задача:')
         if ok and text != '':
+            query.exec("INSERT INTO tasklist (name) VALUES (?)")
+            query.addBindValue(text)
             self.ui.listWidget.insertItem(current_index, text)
+
 
     def remove_tasks(self):
         current_index = self.ui.listWidget.currentRow()
@@ -59,16 +63,22 @@ class Window(QtWidgets.QMainWindow):
         for row in rows:
             self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
 
+
     def create_db(self):
-        db = QSqlDatabase.addDatabase('QSQLITE')
-        db.setDatabaseName('tasklist.sqlite')
+        global query
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("tasklist.sqlite")
         db.open()
         query = QSqlQuery()
-        query.exec("""CREATE TABLE IF NOT EXIST tasklist (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        taskname VARCHAR(255) NOT NULL,
-        active BOOL NOT NULL DEFAULT TRUE ) 
-        """)
+        query.exec\
+        (
+            """
+                CREATE TABLE IF NOT EXISTS tasklist (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                    name VARCHAR(255))
+            """
+        )
+        print(query.exec())
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
