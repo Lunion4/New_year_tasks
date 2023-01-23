@@ -64,18 +64,44 @@ class Ui_Dialog(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.add_button = QtWidgets.QPushButton(self.widget)
-        self.add_button.setObjectName("add_button")
-        self.add_button.setStyleSheet("QPushButton#evilButton:pressed {"
-                                      "background-color: rgb(224, 0, 0)"
+        self.add_button.setStyleSheet("QPushButton {"
+                                      "background-color: black;"
                                       "border-style: inset;"
-                                      "}")
+                                      "color: white"
+                                      "}"
+                                      "QPushButton:pressed {"
+                                      "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #0f0f0f, stop: 1 #0f0f0f);"
+                                      "border-style: inset;"
+                                      "}"
+                                      )
+        self.add_button.setObjectName("add_button")
         self.verticalLayout.addWidget(self.add_button)
         self.remove_button = QtWidgets.QPushButton(self.widget)
         self.remove_button.setObjectName("remove_button")
         self.verticalLayout.addWidget(self.remove_button)
+        self.remove_button.setStyleSheet("QPushButton {"
+                                       "background-color: black;"
+                                       "border-style: inset;"
+                                       "color: white"
+                                       "}"
+                                       "QPushButton:pressed {"
+                                       "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #0f0f0f, stop: 1 #0f0f0f);"
+                                       "border-style: inset;"
+                                       "}"
+                                       )
         self.move_button = QtWidgets.QPushButton(self.widget)
         self.move_button.setObjectName("move_button")
         self.verticalLayout.addWidget(self.move_button)
+        self.move_button.setStyleSheet("QPushButton {"
+                                      "background-color: black;"
+                                      "border-style: inset;"
+                                      "color: white"
+                                      "}"
+                                      "QPushButton:pressed {"
+                                      "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #0f0f0f, stop: 1 #0f0f0f);"
+                                      "border-style: inset;"
+                                      "}"
+                                      )
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
