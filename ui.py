@@ -117,7 +117,3 @@ class Ui_Dialog(object):
         self.add_button.setText(_translate("Dialog", "Добавить"))
         self.remove_button.setText(_translate("Dialog", "Убрать"))
         self.move_button.setText(_translate("Dialog", "Переместить"))
-
-
-
-
