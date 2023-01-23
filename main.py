@@ -20,6 +20,22 @@ class Window(QtWidgets.QMainWindow):
         self.ui.listWidget.itemDoubleClicked.connect(self.remove_tasks)
         self.ui.listWidget_2.itemDoubleClicked.connect(self.remove_tasks_2)
 
+    def create_db(self):
+        global query
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("tasklist.sqlite")
+        db.open()
+        query = QSqlQuery()
+        query.exec\
+        (
+            """
+                CREATE TABLE IF NOT EXISTS tasklist (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                    name VARCHAR(255))
+            """
+        )
+        print(query.exec())
+
     def load_tasks(self):
         self.ui.listWidget.setCurrentRow(0)
 
@@ -27,8 +43,10 @@ class Window(QtWidgets.QMainWindow):
         current_index = self.ui.listWidget.currentRow()
         text, ok = QInputDialog.getText(self, 'Новая Задача', 'Задача:')
         if ok and text != '':
-            query.exec("INSERT INTO tasklist (name) VALUES (?)")
-            query.addBindValue(text)
+            query.exec(f"INSERT INTO tasklist values({text})")
+            print(query.exec(f"INSERT INTO tasklist values({text})"))
+            #query.addBindValue(text)
+            print(text)
             self.ui.listWidget.insertItem(current_index, text)
 
 
@@ -64,21 +82,7 @@ class Window(QtWidgets.QMainWindow):
             self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
 
 
-    def create_db(self):
-        global query
-        db = QSqlDatabase.addDatabase("QSQLITE")
-        db.setDatabaseName("tasklist.sqlite")
-        db.open()
-        query = QSqlQuery()
-        query.exec\
-        (
-            """
-                CREATE TABLE IF NOT EXISTS tasklist (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    name VARCHAR(255))
-            """
-        )
-        print(query.exec())
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

@@ -9,16 +9,44 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtGui import QMovie
+from PyQt5.QtWidgets import QGraphicsOpacityEffect
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("New Year Tasks")
         Dialog.resize(702, 584)
+        self.centralwidget = QtWidgets.QWidget(Dialog)
+        self.centralwidget.setObjectName("main-widget")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(0, 0, 200, 200))
+        self.label.setMinimumSize(QtCore.QSize(800, 600))
+        self.label.setMaximumSize(QtCore.QSize(800, 600))
+        self.label.setObjectName("lb1")
+        Dialog.setCentralWidget(self.centralwidget)
+        self.movie = QMovie("background.gif")
+        self.label.setMovie(self.movie)
+        self.startAnimation()
         self.listWidget = QtWidgets.QListWidget(Dialog)
+        self.opacity_effect = QGraphicsOpacityEffect()
+        self.opacity_effect.setOpacity(0.3)
+        self.listWidget.setGraphicsEffect(self.opacity_effect)
+        self.listWidget.setStyleSheet("QListWidget"
+                            "{"
+                            "border : 2px solid white;"
+                            "background : black;"
+                            "color: white;"
+                            "}")
         self.listWidget.setGeometry(QtCore.QRect(30, 130, 271, 341))
         self.listWidget.setObjectName("listWidget")
         self.listWidget_2 = QtWidgets.QListWidget(Dialog)
+        self.listWidget_2.setGraphicsEffect(self.opacity_effect)
+        self.listWidget_2.setStyleSheet("QListWidget"
+                                      "{"
+                                      "border : 2px solid white;"
+                                      "background : black;"
+                                      "color: white;"
+                                      "}")
         self.listWidget_2.setGeometry(QtCore.QRect(390, 130, 271, 341))
         self.listWidget_2.setObjectName("listWidget_2")
         self.good = QtWidgets.QLabel(Dialog)
@@ -46,6 +74,10 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+    def startAnimation(self):
+        self.movie.start()
+    def stopAnimation(self):
+        self.movie.stop()
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "NYT (New Year Tasks)"))
@@ -54,3 +86,7 @@ class Ui_Dialog(object):
         self.add_button.setText(_translate("Dialog", "Добавить"))
         self.remove_button.setText(_translate("Dialog", "Убрать"))
         self.move_button.setText(_translate("Dialog", "Переместить"))
+
+
+
+
