@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QGraphicsOpacityEffect
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("New Year Tasks")
-        Dialog.resize(702, 584)
+        Dialog.setFixedSize(702, 584)
         self.centralwidget = QtWidgets.QWidget(Dialog)
         self.centralwidget.setObjectName("main-widget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -29,7 +29,7 @@ class Ui_Dialog(object):
         self.startAnimation()
         self.listWidget = QtWidgets.QListWidget(Dialog)
         self.opacity_effect = QGraphicsOpacityEffect()
-        self.opacity_effect.setOpacity(0.3)
+        self.opacity_effect.setOpacity(0.1)
         self.listWidget.setGraphicsEffect(self.opacity_effect)
         self.listWidget.setStyleSheet("QListWidget"
                             "{"
@@ -40,7 +40,9 @@ class Ui_Dialog(object):
         self.listWidget.setGeometry(QtCore.QRect(30, 130, 271, 341))
         self.listWidget.setObjectName("listWidget")
         self.listWidget_2 = QtWidgets.QListWidget(Dialog)
-        self.listWidget_2.setGraphicsEffect(self.opacity_effect)
+        self.opacity_effect_2 = QGraphicsOpacityEffect()
+        self.opacity_effect_2.setOpacity(0.1)
+        self.listWidget_2.setGraphicsEffect(self.opacity_effect_2)
         self.listWidget_2.setStyleSheet("QListWidget"
                                       "{"
                                       "border : 2px solid white;"
@@ -63,6 +65,10 @@ class Ui_Dialog(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.add_button = QtWidgets.QPushButton(self.widget)
         self.add_button.setObjectName("add_button")
+        self.add_button.setStyleSheet("QPushButton#evilButton:pressed {"
+                                      "background-color: rgb(224, 0, 0)"
+                                      "border-style: inset;"
+                                      "}")
         self.verticalLayout.addWidget(self.add_button)
         self.remove_button = QtWidgets.QPushButton(self.widget)
         self.remove_button.setObjectName("remove_button")
@@ -73,7 +79,6 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-
     def startAnimation(self):
         self.movie.start()
     def stopAnimation(self):
