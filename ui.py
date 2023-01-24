@@ -102,7 +102,6 @@ class Ui_Dialog(object):
                                       "border-style: inset;"
                                       "}"
                                       )
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
     def startAnimation(self):
@@ -111,7 +110,7 @@ class Ui_Dialog(object):
         self.movie.stop()
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "NYT (New Year Tasks)"))
+        Dialog.setWindowTitle(_translate("Dialog", "Horror | Tasks"))
         self.good.setText(_translate("Dialog", "Выполненные задачи"))
         self.bad.setText(_translate("Dialog", "Активные задачи"))
         self.add_button.setText(_translate("Dialog", "Добавить"))
