@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QGraphicsOpacityEffect
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-        Dialog.setObjectName("New Year Tasks")
+        Dialog.setObjectName("Horror Tasks")
         Dialog.setFixedSize(702, 584)
         self.centralwidget = QtWidgets.QWidget(Dialog)
         self.centralwidget.setObjectName("main-widget")
