@@ -28,25 +28,25 @@ class Ui_Dialog(object):
         self.label.setMovie(self.movie)
         self.startAnimation()
         self.listWidget = QtWidgets.QListWidget(Dialog)
-        self.opacity_effect = QGraphicsOpacityEffect()
-        self.opacity_effect.setOpacity(0.1)
-        self.listWidget.setGraphicsEffect(self.opacity_effect)
+        # self.opacity_effect = QGraphicsOpacityEffect() #Я клоун: вместо 6 строк 1 слово(background : transparent;)
+        # self.opacity_effect.setOpacity(0.1)
+        # self.listWidget.setGraphicsEffect(self.opacity_effect)
         self.listWidget.setStyleSheet("QListWidget"
                             "{"
                             "border : 2px solid white;"
-                            "background : black;"
+                            "background : transparent;"
                             "color: white;"
                             "}")
         self.listWidget.setGeometry(QtCore.QRect(30, 130, 271, 341))
         self.listWidget.setObjectName("listWidget")
         self.listWidget_2 = QtWidgets.QListWidget(Dialog)
-        self.opacity_effect_2 = QGraphicsOpacityEffect()
-        self.opacity_effect_2.setOpacity(0.1)
-        self.listWidget_2.setGraphicsEffect(self.opacity_effect_2)
+        # self.opacity_effect_2 = QGraphicsOpacityEffect()
+        # self.opacity_effect_2.setOpacity(0.1)
+        # self.listWidget_2.setGraphicsEffect(self.opacity_effect_2) #Я клоун: вместо 6 строк 1 слово(background : transparent;)
         self.listWidget_2.setStyleSheet("QListWidget"
                                       "{"
                                       "border : 2px solid white;"
-                                      "background : black;"
+                                      "background : transparent;"
                                       "color: white;"
                                       "}")
         self.listWidget_2.setGeometry(QtCore.QRect(390, 130, 271, 341))
@@ -65,7 +65,7 @@ class Ui_Dialog(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.add_button = QtWidgets.QPushButton(self.widget)
         self.add_button.setStyleSheet("QPushButton {"
-                                      "background-color: black;"
+                                      "background: transparent;"
                                       "border-style: inset;"
                                       "color: white"
                                       "}"
@@ -80,7 +80,7 @@ class Ui_Dialog(object):
         self.remove_button.setObjectName("remove_button")
         self.verticalLayout.addWidget(self.remove_button)
         self.remove_button.setStyleSheet("QPushButton {"
-                                       "background-color: black;"
+                                       "background: transparent;"
                                        "border-style: inset;"
                                        "color: white"
                                        "}"
@@ -93,7 +93,7 @@ class Ui_Dialog(object):
         self.move_button.setObjectName("move_button")
         self.verticalLayout.addWidget(self.move_button)
         self.move_button.setStyleSheet("QPushButton {"
-                                      "background-color: black;"
+                                      "background: transparent;"
                                       "border-style: inset;"
                                       "color: white"
                                       "}"
