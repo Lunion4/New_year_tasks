@@ -33,7 +33,7 @@ class Ui_Dialog(object):
         # self.listWidget.setGraphicsEffect(self.opacity_effect)
         self.listWidget.setStyleSheet("QListWidget"
                             "{"
-                            "border : 2px solid white;"
+                            "border : 1px solid white;"
                             "background : transparent;"
                             "color: white;"
                             "}")
@@ -45,7 +45,7 @@ class Ui_Dialog(object):
         # self.listWidget_2.setGraphicsEffect(self.opacity_effect_2) #Я клоун: вместо 6 строк 1 слово(background : transparent;)
         self.listWidget_2.setStyleSheet("QListWidget"
                                       "{"
-                                      "border : 2px solid white;"
+                                      "border : 1px solid white;"
                                       "background : transparent;"
                                       "color: white;"
                                       "}")
