@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QInputDialog, QMessageBox
-from PyQt5.QtSql import QSqlQuery, QSqlDatabase
+from PyQt5.QtSql import QSqlQuery, QSqlDatabase, QSqlQueryModel
 from ui import Ui_Dialog
 import sys
 
@@ -11,8 +11,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('icon.png'))
-        self.create_db()
-
+        self.connectToDatabase()
         self.load_tasks()
         self.ui.add_button.clicked.connect(self.add_tasks)
         self.ui.remove_button.clicked.connect(self.remove_tasks)
@@ -20,35 +19,53 @@ class Window(QtWidgets.QMainWindow):
         self.ui.listWidget.itemDoubleClicked.connect(self.remove_tasks)
         self.ui.listWidget_2.itemDoubleClicked.connect(self.remove_tasks_2)
 
-    def create_db(self):
-        global query
-        db = QSqlDatabase.addDatabase("QSQLITE")
-        db.setDatabaseName("tasklist.sqlite")
-        db.open()
+    def connectToDatabase(self):
+        database = QSqlDatabase.database()
+        if not database.isValid():
+            database = QSqlDatabase.addDatabase("QSQLITE")
+            if not database.isValid():
+                logger.error("Cannot add database")
+        filename = "tasklist.sqlite3"
+        database.setDatabaseName(filename)
+        if not database.open():
+            logger.error("Cannot open database")
+
+        database.open()
         query = QSqlQuery()
-        query.exec\
-        (
-            """
-                CREATE TABLE IF NOT EXISTS tasklist (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    name VARCHAR(255))
-            """
-        )
-        print(query.exec())
+        ok = query.exec \
+                (
+                """
+                CREATE TABLE IF NOT EXISTS task (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                            name VARCHAR(255))
+                """
+            )
+        print("Таблица создана:", ok)
 
     def load_tasks(self):
-        self.ui.listWidget.setCurrentRow(0)
+        database = QSqlDatabase.database()
+        database.open()
+        query = QSqlQuery()
+        query.exec("SELECT * FROM task")
+        while query.next():
+            id = query.value(0)
+            text = query.value(1)
+            self.ui.listWidget.insertItem(id, text)
+
+        # self.ui.listWidget.setCurrentRow(0)
 
     def add_tasks(self):
+        database = QSqlDatabase.database()
+        database.open()
+        query = QSqlQuery()
         current_index = self.ui.listWidget.currentRow()
         text, ok = QInputDialog.getText(self, 'Новая Задача', 'Задача:')
         if ok and text != '':
-            query.exec(f"INSERT INTO tasklist values({text})")
-            print(query.exec(f"INSERT INTO tasklist values({text})"))
-            #query.addBindValue(text)
-            print(text)
+            ok = query.prepare("INSERT INTO task (name) values (?)")
+            query.addBindValue(text)
+            ok = query.exec()
+            print(f"Задача '{text}' добавлена в БД: {ok}")
             self.ui.listWidget.insertItem(current_index, text)
-
 
     def remove_tasks(self):
         current_index = self.ui.listWidget.currentRow()
@@ -80,8 +97,6 @@ class Window(QtWidgets.QMainWindow):
         rows = sorted([index.row() for index in self.ui.listWidget.selectedIndexes()], reverse=True)
         for row in rows:
             self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
-
-
 
 
 if __name__ == '__main__':
