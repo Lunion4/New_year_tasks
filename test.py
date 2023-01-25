@@ -59,7 +59,7 @@ def connectToDatabase():
                         name VARCHAR(255))
             """
         )
-    query.exec("INSERT INTO cTest(name) values('rabotat?')")
+    query.exec("INSERT INTO cTest(name) values('rabotaet?')")
 def createTable():
     database = QSqlDatabase.database()
     database.open()
