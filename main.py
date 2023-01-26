@@ -19,6 +19,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.listWidget.itemDoubleClicked.connect(self.remove_tasks)
         self.ui.listWidget_2.itemDoubleClicked.connect(self.remove_tasks_2)
 
+
     def connectToDatabase(self):
         database = QSqlDatabase.database()
         if not database.isValid():
@@ -104,3 +105,4 @@ if __name__ == '__main__':
     win = Window()
     win.show()
     sys.exit(app.exec_())
+

@@ -10,7 +10,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QMovie
-from PyQt5.QtWidgets import QGraphicsOpacityEffect
+from PyQt5.QtWidgets import QGraphicsOpacityEffect, QSystemTrayIcon, QStyle, QMenu, QAction, qApp, QApplication
+import sys
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -104,6 +106,37 @@ class Ui_Dialog(object):
                                       )
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+        # Перенос проги в трей
+        # Запарится и добавить диалоговое окно для подтверждения закрытия в трей
+        # finish1 = QAction("Quit", Dialog)
+        # finish1.triggered.connect(Dialog.hide)
+        # menubar = Dialog.menuBar()
+        # fmenu = menubar.addMenu("File")
+        # fmenu.addAction(finish1)
+        self.tray_icon = QSystemTrayIcon(Dialog)
+        self.tray_icon.setIcon(Dialog.style().standardIcon(QStyle.SP_ComputerIcon))
+        show_action = QAction("Show", Dialog)
+        quit_action = QAction("Exit", Dialog)
+        hide_action = QAction("Hide", Dialog)
+        show_action.triggered.connect(Dialog.show)
+        hide_action.triggered.connect(Dialog.hide)
+        quit_action.triggered.connect(qApp.quit)
+        tray_menu = QMenu()
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(hide_action)
+        tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.show()
+
+
+    def close(self):
+        self.tray_icon.showMessage("Tray Program", "Application was minimized to Tray", QSystemTrayIcon.Information,
+                                   2000)
+
+
+
+
     def startAnimation(self):
         self.movie.start()
     def stopAnimation(self):
@@ -116,3 +149,5 @@ class Ui_Dialog(object):
         self.add_button.setText(_translate("Dialog", "Добавить"))
         self.remove_button.setText(_translate("Dialog", "Убрать"))
         self.move_button.setText(_translate("Dialog", "Переместить"))
+
+
