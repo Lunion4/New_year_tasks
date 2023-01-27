@@ -5,6 +5,8 @@ from ui import Ui_Dialog
 import sys
 
 
+# TODO: доделать дизайн (глаз может по прозрачнее сделать, поменьше, а то он перекрывает таблички)
+# TODO: ещё бы переделать кнопки. Я об их положение, можно в ряд сделать и их самих побольше, повиднее.
 class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -18,7 +20,6 @@ class Window(QtWidgets.QMainWindow):
         self.ui.move_button.clicked.connect(self.click_push_button)
         self.ui.listWidget.itemDoubleClicked.connect(self.remove_tasks)
         self.ui.listWidget_2.itemDoubleClicked.connect(self.remove_tasks_2)
-
 
     def connectToDatabase(self):
         database = QSqlDatabase.database()
@@ -105,4 +106,3 @@ if __name__ == '__main__':
     win = Window()
     win.show()
     sys.exit(app.exec_())
-
