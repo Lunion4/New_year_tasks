@@ -124,7 +124,8 @@ class Window(QtWidgets.QMainWindow):
     def click_push_button(self):
         rows = sorted([index.row() for index in self.ui.listWidget.selectedIndexes()], reverse=True)
         for row in rows:
-            self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
+            pass
+            #self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
 
 
 if __name__ == '__main__':
