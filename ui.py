@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QMovie
+from PyQt5.QtGui import QMovie, QFont
 from PyQt5.QtWidgets import QGraphicsOpacityEffect, QSystemTrayIcon, QStyle, QMenu, QAction, qApp, QApplication
 import sys
 
@@ -21,35 +21,36 @@ class Ui_Dialog(object):
         self.centralwidget = QtWidgets.QWidget(Dialog)
         self.centralwidget.setObjectName("main-widget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(0, 0, 200, 200))
+        self.label.setGeometry(QtCore.QRect(0, 0, 1920, 1080))
         self.label.setMinimumSize(QtCore.QSize(800, 600))
         self.label.setMaximumSize(QtCore.QSize(800, 600))
         self.label.setObjectName("lb1")
+        self.label.setFont(QFont('Times', 15))
         Dialog.setCentralWidget(self.centralwidget)
         self.movie = QMovie("background.gif")
         self.label.setMovie(self.movie)
         self.startAnimation()
         self.listWidget = QtWidgets.QListWidget(Dialog)
-        # self.opacity_effect = QGraphicsOpacityEffect() #Я клоун: вместо 6 строк 1 слово(background : transparent;)
-        # self.opacity_effect.setOpacity(0.1)
-        # self.listWidget.setGraphicsEffect(self.opacity_effect)
+        self.listWidget.setFont(QFont('Times', 11))
         self.listWidget.setStyleSheet("QListWidget"
                             "{"
-                            "border : 1px solid white;"
+                            "border : 1px solid grey;"
                             "background : transparent;"
-                            "color: white;"
+                            "color: LightSeaGreen;"
+                            "padding: 0 3px;"
                             "}")
         self.listWidget.setGeometry(QtCore.QRect(30, 130, 271, 341))
         self.listWidget.setObjectName("listWidget")
         self.listWidget_2 = QtWidgets.QListWidget(Dialog)
+        self.listWidget_2.setFont(QFont('Times', 11))
         # self.opacity_effect_2 = QGraphicsOpacityEffect()
         # self.opacity_effect_2.setOpacity(0.1)
         # self.listWidget_2.setGraphicsEffect(self.opacity_effect_2) #Я клоун: вместо 6 строк 1 слово(background : transparent;)
         self.listWidget_2.setStyleSheet("QListWidget"
                                       "{"
-                                      "border : 1px solid white;"
+                                      "border : 1px solid grey;"
                                       "background : transparent;"
-                                      "color: white;"
+                                      "color: LightSeaGreen;"
                                       "}")
         self.listWidget_2.setGeometry(QtCore.QRect(390, 130, 271, 341))
         self.listWidget_2.setObjectName("listWidget_2")
@@ -66,54 +67,55 @@ class Ui_Dialog(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.add_button = QtWidgets.QPushButton(self.widget)
+        self.add_button.setFont(QFont('Times', 11))
         self.add_button.setStyleSheet("QPushButton {"
                                       "background: transparent;"
                                       "border-style: inset;"
-                                      "color: white"
+                                      "border : 1px solid LightSeaGreen;"
+                                      "color: LightSeaGreen"
                                       "}"
                                       "QPushButton:pressed {"
-                                      "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #0f0f0f, stop: 1 #0f0f0f);"
+                                      "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #97b7f7, stop: 1 #b0deff);"
                                       "border-style: inset;"
                                       "}"
                                       )
         self.add_button.setObjectName("add_button")
         self.verticalLayout.addWidget(self.add_button)
+        self.move_button = QtWidgets.QPushButton(self.widget)
+        self.move_button.setFont(QFont('Times', 11))
+        self.move_button.setObjectName("move_button")
+        self.verticalLayout.addWidget(self.move_button)
+        self.move_button.setStyleSheet("QPushButton {"
+                                       "background: transparent;"
+                                       "border-style: inset;"
+                                       "border : 1px solid LightSeaGreen;"
+                                       "color: LightSeaGreen"
+                                       "}"
+                                       "QPushButton:pressed {"
+                                       "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #97b7f7, stop: 1 #b0deff);"
+                                       "border-style: inset;"
+                                       "}"
+                                       )
         self.remove_button = QtWidgets.QPushButton(self.widget)
+        self.remove_button.setFont(QFont('Times', 11))
         self.remove_button.setObjectName("remove_button")
         self.verticalLayout.addWidget(self.remove_button)
         self.remove_button.setStyleSheet("QPushButton {"
                                        "background: transparent;"
                                        "border-style: inset;"
-                                       "color: white"
+                                       "border : 1px solid LightSeaGreen;"
+                                       "color: LightSeaGreen"
                                        "}"
                                        "QPushButton:pressed {"
-                                       "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #0f0f0f, stop: 1 #0f0f0f);"
+                                       "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #97b7f7, stop: 1 #b0deff);"
                                        "border-style: inset;"
                                        "}"
                                        )
-        self.move_button = QtWidgets.QPushButton(self.widget)
-        self.move_button.setObjectName("move_button")
-        self.verticalLayout.addWidget(self.move_button)
-        self.move_button.setStyleSheet("QPushButton {"
-                                      "background: transparent;"
-                                      "border-style: inset;"
-                                      "color: white"
-                                      "}"
-                                      "QPushButton:pressed {"
-                                      "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #0f0f0f, stop: 1 #0f0f0f);"
-                                      "border-style: inset;"
-                                      "}"
-                                      )
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-        # Перенос проги в трей
-        # Запарится и добавить диалоговое окно для подтверждения закрытия в трей
-        # finish1 = QAction("Quit", Dialog)
-        # finish1.triggered.connect(Dialog.hide)
-        # menubar = Dialog.menuBar()
-        # fmenu = menubar.addMenu("File")
-        # fmenu.addAction(finish1)
+
         self.tray_icon = QSystemTrayIcon(Dialog)
         self.tray_icon.setIcon(Dialog.style().standardIcon(QStyle.SP_ComputerIcon))
         show_action = QAction("Show", Dialog)
@@ -139,15 +141,13 @@ class Ui_Dialog(object):
 
     def startAnimation(self):
         self.movie.start()
-    def stopAnimation(self):
-        self.movie.stop()
+    #def stopAnimation(self):
+        #self.movie.stop()
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Horror | Tasks"))
         self.good.setText(_translate("Dialog", "Выполненные задачи"))
         self.bad.setText(_translate("Dialog", "Активные задачи"))
         self.add_button.setText(_translate("Dialog", "Добавить"))
-        self.remove_button.setText(_translate("Dialog", "Убрать"))
-        self.move_button.setText(_translate("Dialog", "Переместить"))
-
-
+        self.remove_button.setText(_translate("Dialog", "Удалить"))
+        self.move_button.setText(_translate("Dialog", "Cместить"))
