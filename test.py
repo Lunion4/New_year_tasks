@@ -84,3 +84,49 @@
 #     w.show()
 #     sys.exit(app.exec_())
 
+import sys
+
+from PyQt5.QtWidgets import *
+from PyQt5.QtMultimedia import *
+from PyQt5.QtMultimediaWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+
+
+class SuperPlayer(QGraphicsView):
+    def __init__(self):
+        super().__init__(self)
+
+        self.gv = QGraphicsView()
+        self.mp = QMediaPlayer()  # Передаёт поток на gvi
+        self.gs = QGraphicsScene()  # Передаёт поток на gv
+
+        # Передаёт поток на gs, с надстройкой о игнорировании
+        # прозрачности родительских классов дочерними
+        self.gvi = QGraphicsVideoItem()
+
+        self.gvi.setMediaObject()
+        self.gs.addItem()
+        self.gv.setScene()
+        self.mp.setVideoOutput()
+        self.gvi.setOpacity()
+        self.gvi.ItemIgnoresParentOpacity(True)
+
+        # Думал переслать видео поток на него
+        # self.vw = QVideoWidget()
+        # self.vw.setWindowOpacity()
+        # self.vw.showFullScreen()
+
+        self.mp.setMedia(QMediaContent(QUrl.fromLocalFile("background.gif")))
+        self.gv.showFullScreen()
+        self.mp.play()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    view = SuperPlayer()
+    view.show()
+
+    sys.exit(app.exec_())
+
