@@ -5,8 +5,6 @@ from ui import Ui_Dialog
 import sys
 
 
-# TODO: доделать дизайн (глаз может по прозрачнее сделать, поменьше, а то он перекрывает таблички)
-# TODO: ещё бы переделать кнопки. Я об их положение, можно в ряд сделать и их самих побольше, повиднее.
 class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -42,7 +40,7 @@ class Window(QtWidgets.QMainWindow):
                             name VARCHAR(255) UNIQUE)
                 """
             )
-        print("Таблица task создана:", ok)
+        # print("Таблица task создана:", ok)
         ok = query.exec \
                 (
                 """
@@ -51,7 +49,7 @@ class Window(QtWidgets.QMainWindow):
                             name VARCHAR(255) UNIQUE)
                 """
             )
-        print("Таблица completed_tasks создана:", ok)
+        # print("Таблица completed_tasks создана:", ok)
 
     def load_tasks(self):
         database = QSqlDatabase.database()
@@ -68,19 +66,14 @@ class Window(QtWidgets.QMainWindow):
             text = query.value(1)
             self.ui.listWidget_2.insertItem(id, text)
 
-        # self.ui.listWidget.setCurrentRow(0)
-
     def add_tasks(self):
-        database = QSqlDatabase.database()
-        database.open()
         query = QSqlQuery()
         current_index = self.ui.listWidget.currentRow()
         text, ok = QInputDialog.getText(self, 'Новая Задача', 'Задача:')
         if ok and text != '':
             query.prepare("INSERT INTO task (name) values (?)")
             query.addBindValue(text)
-            ok = query.exec()
-            print(f"Задача '{text}' добавлена в БД: {ok}")
+            query.exec()
             self.ui.listWidget.insertItem(current_index, text)
 
     def remove_tasks(self):
@@ -92,40 +85,65 @@ class Window(QtWidgets.QMainWindow):
                                         QMessageBox.Yes | QMessageBox.No)
 
         if question == QMessageBox.Yes:
-            '''item = self.ui.listWidget.takeItem(current_index)
-            del item'''
             query = QSqlQuery()
             query.prepare("SELECT id FROM task WHERE name = (?)")
             query.addBindValue(curr_item.text())
-            ok = query.exec()
+            query.exec()
             query.next()
             id = query.value(0)
-            print(f"Запись '{curr_item.text()}' была найдена с id={id}: {ok}")
             query.prepare("DELETE FROM task WHERE id = (?)")
             query.addBindValue(id)
-            ok = query.exec()
-            print(f"Запись с id={id} была удалена: {ok}")
+            query.exec()
             self.ui.listWidget.clear()
+            self.ui.listWidget_2.clear()
             self.load_tasks()
 
     def remove_tasks_2(self):
-        current_index = self.ui.listWidget_2.currentRow()
-        item = self.ui.listWidget_2.item(current_index)
-        if item is None:
+        curr_id = self.ui.listWidget_2.currentRow()
+        curr_item = self.ui.listWidget_2.item(curr_id)
+        if curr_item is None:
             return
-
-        question = QMessageBox.question(self, "Убрать задачу", 'Вы точно хотите убрать задачу ' + item.text(),
+        question = QMessageBox.question(self, "Убрать задачу", 'Вы точно хотите убрать задачу ' + curr_item.text(),
                                         QMessageBox.Yes | QMessageBox.No)
 
         if question == QMessageBox.Yes:
-            item = self.ui.listWidget_2.takeItem(current_index)
-            del item
+            query = QSqlQuery()
+            query.prepare("SELECT id FROM completed_tasks WHERE name = (?)")
+            query.addBindValue(curr_item.text())
+            query.exec()
+            query.next()
+            id = query.value(0)
+            query.prepare("DELETE FROM completed_tasks WHERE id = (?)")
+            query.addBindValue(id)
+            query.exec()
+            self.ui.listWidget.clear()
+            self.ui.listWidget_2.clear()
+            self.load_tasks()
 
     def click_push_button(self):
-        rows = sorted([index.row() for index in self.ui.listWidget.selectedIndexes()], reverse=True)
-        for row in rows:
-            pass
-            #self.ui.listWidget_2.addItem(self.ui.listWidget.takeItem(row))
+        curr_id = self.ui.listWidget.currentRow()
+        curr_item = self.ui.listWidget.item(curr_id)
+        if curr_item is None:
+            return
+        query = QSqlQuery()
+        query.prepare("SELECT * FROM task WHERE name = (?)")
+        query.addBindValue(curr_item.text())
+        query.exec()
+        query.next()
+        id = query.value(0)
+        text = query.value(1)
+
+        query.prepare("INSERT INTO completed_tasks (name) values (?)")
+        query.addBindValue(text)
+        query.exec()
+
+        query.prepare("DELETE FROM task WHERE id = (?)")
+        query.addBindValue(id)
+        query.exec()
+
+        self.ui.listWidget.clear()
+        self.ui.listWidget_2.clear()
+        self.load_tasks()
 
 
 if __name__ == '__main__':
